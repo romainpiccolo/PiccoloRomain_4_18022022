@@ -371,7 +371,7 @@ input[data-error]::after {
 }
 .hero-section {
 	/* min-height: 93vh; */
-    height: 70vh;
+    /* height: auto; */
 	border-radius: 10px;
 	display: grid;
 	grid-template-columns: repeat(12, 1fr);
@@ -442,10 +442,10 @@ input[data-error]::after {
 footer {
 	/* padding-left: 2vw; */
 	padding-right: 2vw;
-	/* margin: 0 20px; */
+	margin: 0 20px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 992px) {
 	.topnav a {
 		display: none;
 	}
@@ -508,9 +508,9 @@ footer {
 	}
 }
 
-@media screen and (max-width: 992px) {
+/* @media screen and (max-width: 992px) {
 
-}
+} */
 
 @keyframes modalopen {
 	from {
