@@ -29,4 +29,21 @@ function closeModal() {
     modalbg.style.display = "none";
 }
 
+// Set Error
+function setErrorMessage(id, message) {
+    document.getElementById(id).parentElement.setAttribute('data-error-visible', true);
+    document.getElementById(id).parentElement.setAttribute('data-error', message);
+}
+
+
+//Reset all Error
+function resetError() {
+    const formDatas = document.querySelectorAll('.formData');
+
+    formDatas.map(formData => {
+        formData.setAttribute('data-error-visible', false);
+        formData.removeAttribute('data-error');
+    })
+}
+
 
