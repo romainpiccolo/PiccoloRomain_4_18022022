@@ -29,14 +29,18 @@ function closeModal() {
     modalbg.style.display = "none";
 }
 
-// Set Error
-function setErrorMessage(id, message) {
-    document.getElementById(id).parentElement.setAttribute('data-error-visible', true);
-    document.getElementById(id).parentElement.setAttribute('data-error', message);
+// Set Field Error
+function setError(fieldId, error){
+    document.getElementById(fieldId).parentElement.setAttribute('data-error', error);
+    document.getElementById(fieldId).parentElement.setAttribute('data-error-visible', true);
 }
 
+// Reset Field Error
+function resetError(fieldId){
+    document.getElementById(fieldId).parentElement.setAttribute('data-error-visible', false);
+}
 
-//Reset all Error
+// Reset all Error
 function resetAllErrors() {
     const formDatas = document.querySelectorAll('.formData');
 
@@ -45,5 +49,3 @@ function resetAllErrors() {
         formData.removeAttribute('data-error');
     })
 }
-
-

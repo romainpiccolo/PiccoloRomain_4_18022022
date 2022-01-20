@@ -83,15 +83,6 @@ const validator = (field) => {
     return isValid;
 }
 
-const resetError = (fieldId) => {
-    document.getElementById(fieldId).parentElement.setAttribute('data-error-visible', false);
-}
-
-const setError = (fieldId, error) => {
-    document.getElementById(fieldId).parentElement.setAttribute('data-error', error);
-    document.getElementById(fieldId).parentElement.setAttribute('data-error-visible', true);
-}
-
 // Check if a name has 2 or more letters
 const isValidName = (value) => {
     return value.length >= 2;
@@ -126,8 +117,22 @@ const isChecked = (fieldId) => {
 	return document.getElementById(fieldId).checked;
 };
 
+
+// Toggle the confirmation element
+const toggleSuccessDiv = () => {
+    const successSubmit = document.querySelector(".success-submit");
+
+    successSubmit.classList.toggle("display-block")
+} 
+
+const resetForm = () => {
+    document.querySelector('form[name=reserve]').reset();
+}
+
 const validateForm = (e) => {
     let isValid = true;
+
+	e.preventDefault();
 
     for (const field of formFields) {
 
@@ -139,7 +144,10 @@ const validateForm = (e) => {
         }
     }
 
-    if (!isValid) {
-	    e.preventDefault();
+    if (isValid) {
+        closeModal();
+        toggleSuccessDiv();
+        setTimeout(toggleSuccessDiv, 5000);
+        resetForm();
     }
 }

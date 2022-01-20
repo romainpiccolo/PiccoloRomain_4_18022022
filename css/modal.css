@@ -191,12 +191,7 @@ input {
 .formData[data-error-visible='true'] .text-control {
 	border: 2px solid #e54858;
 }
-/* 
-input[data-error]::after {
-    content: attr(data-error);
-    font-size: 0.4em;
-    color: red;
-} */
+
 .checkbox-label,
 .checkbox2-label {
 	position: relative;
@@ -445,6 +440,25 @@ footer {
 	margin: 0 20px;
 }
 
+/* Success div */
+.success-submit {
+    position: fixed;
+    z-index: 2;
+    display: none;
+    bottom: 1px;
+    right: 1px;
+    border-radius: 10px;
+    background-color: #4bb543;
+    color: white;
+    font-size: 1.5rem;
+    padding: 10px;
+}
+
+.display-block {
+    display: block;
+}
+
+
 @media screen and (max-width: 992px) {
 	.topnav a {
 		display: none;
@@ -506,11 +520,10 @@ footer {
 		margin-top: 50px;
 		text-align: center;
 	}
+    .success-submit {
+        font-size: 1rem;
+    }
 }
-
-/* @media screen and (max-width: 992px) {
-
-} */
 
 @keyframes modalopen {
 	from {
