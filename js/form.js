@@ -1,6 +1,100 @@
+const formFields = [
+    {
+        id: "first",
+        verifType: "name",
+        errorMessage: "Veuillez entrer 2 caractères ou plus pour le champ du prénom."
+    },
+    {
+        id: "last",
+        verifType: "name",
+        errorMessage: "Veuillez entrer 2 caractères ou plus pour le champ du nom."
+    },
+    {
+        id: "email",
+        verifType: "email",
+        errorMessage: "Veuillez entrer un email valide."
+    },
+    {
+        id: "birthdate",
+        verifType: "input",
+        errorMessage: "Vous devez entrer votre date de naissance."
+    },
+    {
+        id: "quantity",
+        verifType: "number",
+        errorMessage: "Vous devez entrer un nombre de tournoi."
+    },
+    {
+        id: "location1",
+        verifType: "radio",
+        name: "location",
+        errorMessage: "Vous devez choisir une option."
+    },
+    {
+        id: "checkbox1",
+        verifType: "checkbox",
+        errorMessage: "Vous devez vérifier que vous acceptez les termes et conditions."
+    },
+]
+
+const validator = (field) => {
+    let isValid = false;
+    let value = null;
+
+    switch (field.verifType) {
+        case "name":
+            value = document.getElementById(field.id).value;
+            isValid = isValidName(value);
+            
+            break;
+            
+        case "email":
+            value = document.getElementById(field.id).value;
+            isValid = isValidEmail(value);
+
+            break;
+            
+        case "input":
+            value = document.getElementById(field.id).value;
+            isValid = isNotEmpty(value);
+
+            break;
+
+        case "number":
+            value = parseInt(document.getElementById(field.id).value);
+            isValid = isNumber(value);
+
+            break;
+
+        case "radio":
+            isValid = isSelected(field.name);
+            
+            break;
+
+        case "checkbox":
+            isValid = isChecked(field.id);
+            
+            break;
+    
+        default:
+            break;
+    }
+
+    return isValid;
+}
+
+const resetError = (fieldId) => {
+    document.getElementById(fieldId).parentElement.setAttribute('data-error-visible', false);
+}
+
+const setError = (fieldId, error) => {
+    document.getElementById(fieldId).parentElement.setAttribute('data-error', error);
+    document.getElementById(fieldId).parentElement.setAttribute('data-error-visible', true);
+}
+
 // Check if a name has 2 or more letters
 const isValidName = (value) => {
-	return value.length >= 2;
+    return value.length >= 2;
 };
 
 // Check if it's a valid email
@@ -12,36 +106,40 @@ const isValidEmail = (email) => {
 		);
 };
 
+// Check if it's not null
+const isNotEmpty = (value) => {
+    return value !== "" ? true : false;
+}
+
 // Check if it's a number
 const isNumber = (value) => {
 	return isNaN(value) ? false : true;
 };
 
-const hasLocation = (value) => {
-	return value !== null ? true : false;
-};
+// Check if a radio button is selected
+const isSelected = (radioName) => {
+    return document.querySelector(`input[name=${radioName}]:checked`) !== null ? true : false;
+}
 
-const CGUisChecked = () => {
-	return document.getElementById('checkbox1').checked;
+// Check if a checkbox is checked
+const isChecked = (fieldId) => {
+	return document.getElementById(fieldId).checked;
 };
 
 const validateForm = (e) => {
-	const firstname = document.getElementById('first').value;
-	const lastname = document.getElementById('last').value;
-	const email = document.getElementById('email').value;
-    const birthdate = document.getElementById('birthdate').value;
-	const quantity = document.getElementById('quantity').value;
-	const location = document.querySelector('input[name=location]:checked');
+    let isValid = true;
 
-	if (
-		!isValidName(firstname) ||
-		!isValidName(lastname) ||
-		!isValidEmail(email) ||
-        !birthdate ||
-		!isNumber(quantity) ||
-		!hasLocation(location) ||
-		!CGUisChecked()
-	) {
-		e.preventDefault();
-	}
-};
+    for (const field of formFields) {
+
+        resetError(field.id);
+
+        if (!validator(field)) {
+            setError(field.id, field.errorMessage);
+            isValid = false;
+        }
+    }
+
+    if (!isValid) {
+	    e.preventDefault();
+    }
+}

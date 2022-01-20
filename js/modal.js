@@ -37,7 +37,7 @@ function setErrorMessage(id, message) {
 
 
 //Reset all Error
-function resetError() {
+function resetAllErrors() {
     const formDatas = document.querySelectorAll('.formData');
 
     formDatas.map(formData => {
