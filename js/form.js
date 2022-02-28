@@ -129,8 +129,10 @@ const resetForm = () => {
     document.querySelector('form[name=reserve]').reset();
 }
 
+//Change validateForm isValid = false
+//Verif birthdate
 const validateForm = (e) => {
-    let isValid = true;
+    let validField = 0;
 
 	e.preventDefault();
 
@@ -138,11 +140,14 @@ const validateForm = (e) => {
 
         resetError(field.id);
 
-        if (!validator(field)) {
+        if (validator(field)) {
+            validField++;
+        } else {
             setError(field.id, field.errorMessage);
-            isValid = false;
         }
     }
+
+    const isValid = formFields.length === validField ? true : false;
 
     if (isValid) {
         closeModal();
