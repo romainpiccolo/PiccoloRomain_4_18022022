@@ -17,7 +17,7 @@ const formFields = [
     {
         id: "birthdate",
         verifType: "input",
-        errorMessage: "Vous devez entrer votre date de naissance."
+        errorMessage: "Vous devez entrer une date de naissance valide."
     },
     {
         id: "quantity",
@@ -56,7 +56,7 @@ const validator = (field) => {
             
         case "input":
             value = document.getElementById(field.id).value;
-            isValid = isNotEmpty(value);
+            isValid = isNotEmpty(value) && isValidDate(value);
 
             break;
 
@@ -102,6 +102,11 @@ const isNotEmpty = (value) => {
     return value !== "" ? true : false;
 }
 
+// Check if it's valid date
+const isValidDate = (value) => {
+    return new Date(value) < new Date();
+}
+
 // Check if it's a number
 const isNumber = (value) => {
 	return isNaN(value) ? false : true;
@@ -129,7 +134,6 @@ const resetForm = () => {
     document.querySelector('form[name=reserve]').reset();
 }
 
-//Change validateForm isValid = false
 //Verif birthdate
 const validateForm = (e) => {
     let validField = 0;
