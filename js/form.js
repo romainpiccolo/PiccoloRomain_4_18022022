@@ -83,9 +83,10 @@ const validator = (field) => {
     return isValid;
 }
 
-// Check if a name has 2 or more letters
+// Check if a name has 2 or more letters and has alpha
 const isValidName = (value) => {
-    return value.length >= 2;
+    const regex = new RegExp('[A-Za-z]');
+    return regex.test(value) && value.length >= 2;
 };
 
 // Check if it's a valid email
